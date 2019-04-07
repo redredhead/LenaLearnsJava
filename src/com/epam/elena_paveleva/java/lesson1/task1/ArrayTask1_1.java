@@ -6,9 +6,9 @@ public class ArrayTask1_1 {
         Integer maxNegative = null;
 
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > 0 && ( minPositive == null || arr[i] < minPositive )) minPositive = arr[i];
-            if (arr[i] < 0 && ( maxNegative == null || arr[i] > maxNegative )) maxNegative = arr[i];
+        for (int i1 : arr) {
+            if (i1 > 0 && (minPositive == null || i1 < minPositive)) minPositive = i1;
+            if (i1 < 0 && (maxNegative == null || i1 > maxNegative)) maxNegative = i1;
         }
 
 

@@ -1,7 +1,5 @@
 package com.epam.elena_paveleva.java.lesson1.task1;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArrayGeneral {
@@ -11,9 +9,8 @@ public class ArrayGeneral {
 
         while (true) {
             System.out.println("Enter a number of the task you want to run or press X for exit: ");
-              //  String input = new String(sc.next());
-           if (sc.hasNext("x") || sc.hasNext("X")) {
-           // if (input.toUpperCase()=="X") {
+
+            if (sc.next().toUpperCase().equals("X")) {
                 System.out.println("Bye");
                 sc.close();
                 return;
@@ -23,11 +20,9 @@ public class ArrayGeneral {
                 ArrayService arrayService = new ArrayService();
                 switch (taskNumber) {
 
-                    case 1:
+                    case 1: // task 1_1
                         arr = arrayService.initializeArray(20);
                         arrayService.printArray("Original array:", arr);
-
-                        // task 1_1
                         ArrayTask1_1 swapArray = new ArrayTask1_1();
                         arrayService.printArray("Array we deserved:", swapArray.swapElements(arr));
                         break;
@@ -53,7 +48,15 @@ public class ArrayGeneral {
                     case 5: //task 1_5
                         arr = arrayService.initializeArray(20);
                         arrayService.printArray("\nOriginal array for task 5:", arr);
-                        arrayService.getDifference(arr);
+                        arrayService.calculateDifference(arr);
+                        break;
+
+                    case 6:
+                        arr = arrayService.initializeArray(20);
+                        arrayService.printArray("\nOriginal array for task 5:", arr);
+                        ArrayTask1_6 arrTask1_6 = new ArrayTask1_6(arr);
+                        arrTask1_6.countOccurrences();
+                        arrTask1_6.printDuplicates();
                         break;
 
                     default:
@@ -63,11 +66,6 @@ public class ArrayGeneral {
             } else {
                 System.out.println("Input is not an index number");
             }
-
         }
-
-        //task1_6
-        // boolean a  = Arrays.asList(arr).contains(1);
-
     }
 }
