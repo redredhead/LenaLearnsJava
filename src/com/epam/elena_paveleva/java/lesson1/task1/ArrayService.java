@@ -32,7 +32,9 @@ public class ArrayService { //this is a class with some routine methods
     int getMinValue(int[] arr) {     // Task 1_5                                                                                             // find minimum value in the array
         int min = arr[0];
         for (int i1 : arr) {
-            if (i1 < min) min = i1;
+            if (i1 < min) {
+                min = i1;
+            }
         }
         return min;
     }

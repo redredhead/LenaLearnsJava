@@ -19,10 +19,12 @@ public class ArrayTask1_6 {
         }
     }
 
-    void printDuplicates() {
-        System.out.println("Duplicates:");
-        for (int i = 0; i < frequencyArray[0].length; i++) {
-            if (frequencyArray[1][i] > 0) System.out.print(frequencyArray[0][i] + " ");
+    void printOddDuplicates() {
+        System.out.println("Duplicates with odd index:");
+        for (int i = 1; i < frequencyArray[0].length; i+=2) {
+            if (frequencyArray[1][i] > 0) {
+                System.out.print(frequencyArray[0][i] + " ");
+            }
         }
         System.out.print("\n");
     }

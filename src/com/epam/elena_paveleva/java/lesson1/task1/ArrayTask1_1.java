@@ -7,8 +7,13 @@ public class ArrayTask1_1 {
 
 
         for (int i1 : arr) {
-            if (i1 > 0 && (minPositive == null || i1 < minPositive)) minPositive = i1;
-            if (i1 < 0 && (maxNegative == null || i1 > maxNegative)) maxNegative = i1;
+            if (i1 > 0 && (minPositive == null || i1 < minPositive))
+            {
+                minPositive = i1;
+            }
+            if (i1 < 0 && (maxNegative == null || i1 > maxNegative)) {
+                maxNegative = i1;
+            }
         }
 
 

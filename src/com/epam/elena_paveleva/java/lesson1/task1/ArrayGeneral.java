@@ -9,14 +9,15 @@ public class ArrayGeneral {
 
         while (true) {
             System.out.println("Enter a number of the task you want to run or press X for exit: ");
-
-            if (sc.next().toUpperCase().equals("X")) {
+            String input = sc.next().toUpperCase();
+            if (input.equals("X")) {
                 System.out.println("Bye");
                 sc.close();
                 return;
-            } else if (sc.hasNextInt()) {
-                int taskNumber = sc.nextInt();
+            }
+            try {
                 int[] arr;
+                int taskNumber = Integer.parseInt(input);
                 ArrayService arrayService = new ArrayService();
                 switch (taskNumber) {
 
@@ -56,14 +57,14 @@ public class ArrayGeneral {
                         arrayService.printArray("\nOriginal array for task 5:", arr);
                         ArrayTask1_6 arrTask1_6 = new ArrayTask1_6(arr);
                         arrTask1_6.countOccurrences();
-                        arrTask1_6.printDuplicates();
+                        arrTask1_6.printOddDuplicates();
                         break;
 
                     default:
                         System.out.println("There's no such task yet");
                         break;
                 }
-            } else {
+            } catch (NumberFormatException | NullPointerException e) {
                 System.out.println("Input is not an index number");
             }
         }
