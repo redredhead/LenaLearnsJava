@@ -41,5 +41,7 @@ public class ArrayService { //this is a class with some routine methods
 
     void calculateDifference(int[] arr) { //Task 1_5: get difference between array average and array min value
         System.out.println("Difference between array average and array min value is: " + (getAverage(arr) - getMinValue(arr)));
+
+
     }
 }
