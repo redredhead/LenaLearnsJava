@@ -2,7 +2,7 @@ package com.epam.elena_paveleva.java.lesson1.task1;
 
 import java.util.Scanner;
 
-public class ArrayGeneral {
+public class Menu {
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
@@ -12,10 +12,41 @@ public class ArrayGeneral {
 
     private static void process(Scanner sc) {
         while (true) {
+            System.out.println("Press 1 to work with arrays. Press 2 to work with strings. Press X for exit");
+            String input = sc.next();
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Bye");
+                break;
+            }
+            int menuItem;
+            try {
+                menuItem = Integer.parseInt(input); // в отдельный метод с большим Integer
+            } catch (NumberFormatException e) {
+                System.out.println("Input is not an index number");
+                continue;
+            }
+            switch (menuItem) {
+                case 1:
+                    processArray(sc);
+                    break;
+
+                case 2:
+                    processStrings(sc);
+                    break;
+
+                default:
+                    System.out.println("There's no such menu item");
+                    break;
+            }
+        }
+    }
+
+    private static void processArray(Scanner sc) {
+        while (true) {
             System.out.println("Enter a number of the task you want to run or press X for exit: ");
             String input = sc.next().toUpperCase();
             if (input.equals("X")) {
-                System.out.println("Bye");
+                System.out.println("Going back to main menu");
                 break;
             }
 
@@ -74,6 +105,33 @@ public class ArrayGeneral {
                     break;
             }
 
+        }
+    }
+
+    private static void processStrings(Scanner sc) {
+        while (true) {
+            System.out.println("Enter task number");
+            String input = sc.next();
+            if (input.equalsIgnoreCase("X")) {
+                System.out.println("Going back to main menu");
+                break;
+            }
+            int taskNumber = 0;
+            try {
+                taskNumber = Integer.parseInt(input);
+            } catch (NumberFormatException | NullPointerException e) {
+                System.out.println("Input is not an index number");
+                continue;
+            }
+            switch (taskNumber) {
+                case 1:
+                    StringService stringService = new StringService();
+                    stringService.findMinMax(sc);
+                    break;
+
+                default:
+                    System.out.println("There's no such task yet");
+            }
         }
     }
 }
