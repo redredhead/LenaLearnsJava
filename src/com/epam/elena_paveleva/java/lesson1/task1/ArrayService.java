@@ -3,8 +3,8 @@ package com.epam.elena_paveleva.java.lesson1.task1;
 public class ArrayService { //this is a class with some routine methods
     void printArray(String text, int[] arr) {
         System.out.println(text);
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int i1 : arr) {
+            System.out.print(i1 + " ");
         }
         System.out.print("\n");
     }
@@ -19,27 +19,29 @@ public class ArrayService { //this is a class with some routine methods
 
     int getSum(int[] arr) {     //get sum of the elements in array
         int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
+        for (int i1 : arr) {
+            sum += i1;
         }
         return sum;
     }
 
-    double getAverage(int[] arr) { // get average of the array
-        int a = getSum(arr);
-        double b = (double)getSum(arr) / (double)arr.length;
-        return (b);
+    double getAverage(int[] arr) { // Task 1_5 : get average of the array
+        return ((double) getSum(arr) / (double) arr.length);
     }
 
-    int getMinValue(int[] arr) {                                                                                                  // find minimum value in the array
+    int getMinValue(int[] arr) {     // Task 1_5                                                                                             // find minimum value in the array
         int min = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < min) min = arr[i];
+        for (int i1 : arr) {
+            if (i1 < min) {
+                min = i1;
+            }
         }
         return min;
     }
 
-    void getDifference (int[] arr) { //get difference between array average and array min value
+    void calculateDifference(int[] arr) { //Task 1_5: get difference between array average and array min value
         System.out.println("Difference between array average and array min value is: " + (getAverage(arr) - getMinValue(arr)));
+
+
     }
 }
