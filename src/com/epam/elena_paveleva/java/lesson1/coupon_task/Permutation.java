@@ -31,7 +31,7 @@ public class Permutation {
         return a;
     }
 
-    int[] findOptimum(int orderTotal) {
+    void findOptimum(int orderTotal) {
         for (int i = 0; i < qtyPermutations; i++) {
             permutations[i] = charToIntArrayConverter((String.format(formatExpression, Integer.parseInt(Integer.toBinaryString(i)))));
             if (getSum(permutations[i]) > optValue && getSum(permutations[i]) <= orderTotal) {
@@ -39,7 +39,8 @@ public class Permutation {
                 optValue = getSum(permutations[i]);
             }
         }
-        return optSelection;
+       // return optSelection;
+        printSelection(optSelection);
     }
 
     int getSum(int[] arr) {
@@ -50,4 +51,12 @@ public class Permutation {
         return sum;
     }
 
+    void printSelection(int[] arr) {
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 1) {
+                System.out.println("Used coupon: " + values[i]);
+            }
+        }
+    }
 }

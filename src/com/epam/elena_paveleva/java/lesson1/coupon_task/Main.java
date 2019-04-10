@@ -13,7 +13,7 @@ public class Main {
         Coupon c3 = new Coupon(2);
         Coupon c4 = new Coupon(2);
 
-        int orderValue = 8;
+        int orderValue = 10;
 
         coupons.add(c1);
         coupons.add(c2);
@@ -21,7 +21,8 @@ public class Main {
         coupons.add(c4);
 
         Permutation p = new Permutation(coupons);
-        System.out.println(Arrays.toString(p.findOptimum(orderValue)));
+       // System.out.println(Arrays.toString(p.findOptimum(orderValue)));
+        p.findOptimum(orderValue);
 
 
 
