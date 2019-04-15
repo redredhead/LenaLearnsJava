@@ -125,8 +125,15 @@ public class Menu {
             }
             switch (taskNumber) {
                 case 1:
-                    StringService stringService = new StringService();
-                    stringService.findMinMax(sc);
+                    StringService.findMinMax(sc);
+                    break;
+
+                case 2:
+                    StringService.printLonger(StringService.enterStrings(sc));
+                    break;
+
+                case 3:
+                    StringService.printShorter(StringService.enterStrings(sc));
                     break;
 
                 default:
