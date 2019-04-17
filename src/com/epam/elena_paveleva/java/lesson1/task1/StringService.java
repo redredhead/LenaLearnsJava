@@ -52,21 +52,77 @@ public class StringService {
     }
 
     static String[] enterStrings(Scanner sc) {
+        int n = getN(sc);
         sc.useDelimiter("\n");
-        System.out.println("Enter N and press Enter");
+        String[] str = new String[n];
+        System.out.println("Enter " + n + " lines");
+        for (int i = 0; i < n; i++) {
+            str[i] = sc.next();
+        }
+        return str;
+    }
+
+    static String[] enterWords(Scanner sc) {
+        int n = getN(sc);
+        String[] words = new String[n];
+        sc.useDelimiter("\\s");
+        System.out.println("Enter " + n + " words separated by space");
+        for (int i = 0; i < n; i++) {
+            words[i] = sc.next();
+        }
+        sc.useDelimiter("\n");
+        sc.next();
+        return words;
+    }
+
+    static int getN(Scanner sc) {
+        sc.useDelimiter("\n");
         int n;
-        String[] str;
-        try {
-            n = sc.nextInt();
-            System.out.println("Enter " + n + " lines");
-            str = new String[n];
-            for (int i = 0; i < n; i++) {
-                str[i] = sc.next();
+        while (true) {
+            System.out.println("Enter N and press Enter");
+            try {
+                n = sc.nextInt();
+                return n;
+            } catch (InputMismatchException e) {
+                System.out.println("N must be an integer number");
+                sc.next();
             }
-            return str;
-        } catch (InputMismatchException e) {
-            System.out.println("N must be an integer number");
-            return null;
+        }
+    }
+
+    static int countSymbols(String str) {
+        int c = 0;
+        str.toUpperCase();
+        for (int i = 0; i < str.length(); i++) {
+            boolean isUnique = true;
+            for (int j = i + 1; j < str.length(); j++) {
+                if (str.charAt(i) == str.charAt(j)) {
+                    isUnique = false;
+                }
+            }
+            if (isUnique = true) {
+                c++;
+            }
+        }
+        return c;
+    }
+
+    static void findWordWithMinSymbols(String[] words) {
+        String minWord = words[0];
+        for (int i = 0; i < words.length; i++) {
+            if (countSymbols(words[i]) < countSymbols(minWord)) {
+                minWord = words[i];
+            }
+        }
+        System.out.println("Word with min amount of different symbols is: " + minWord);
+    }
+
+    static void findWordWithUniqueSymbolsOnly (String [] words) {
+        for (int i = 0; i < words.length; i++) {
+            if (countSymbols(words[i]) == words[i].length()) {
+                System.out.println("Word with only unique symbols: " + words[i]);
+                return;
+            }
         }
     }
 }

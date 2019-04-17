@@ -136,6 +136,13 @@ public class Menu {
                     StringService.printShorter(StringService.enterStrings(sc));
                     break;
 
+                case 4:
+                    StringService.findWordWithMinSymbols(StringService.enterWords(sc));
+                    break;
+
+                case 5:
+                    StringService.findWordWithUniqueSymbolsOnly(StringService.enterWords(sc));
+
                 default:
                     System.out.println("There's no such task yet");
             }
@@ -143,4 +150,3 @@ public class Menu {
     }
 }
 
-//123
