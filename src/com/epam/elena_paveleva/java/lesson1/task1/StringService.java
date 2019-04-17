@@ -19,8 +19,12 @@ public class StringService {
             }
             input = sc.next();
         }
-        System.out.println("min string is: " + min + " " + min.length());
-        System.out.println("max string is: " + max + " " + max.length());
+        if (min != null && max != null) {
+            System.out.println("min string is: " + min + " with length: " + min.length());
+            System.out.println("max string is: " + max + " with length: " + max.length());
+        } else {
+            System.out.println("Incorrect input value");
+        }
     }
 
     static double getAverageLength(String[] str) {
@@ -70,8 +74,7 @@ public class StringService {
         for (int i = 0; i < n; i++) {
             words[i] = sc.next();
         }
-        sc.useDelimiter("\n");
-        sc.next();
+
         return words;
     }
 
@@ -92,7 +95,7 @@ public class StringService {
 
     static int countSymbols(String str) {
         int c = 0;
-        str.toUpperCase();
+        str = str.toUpperCase();
         for (int i = 0; i < str.length(); i++) {
             boolean isUnique = true;
             for (int j = i + 1; j < str.length(); j++) {
@@ -100,7 +103,7 @@ public class StringService {
                     isUnique = false;
                 }
             }
-            if (isUnique = true) {
+            if (isUnique == true) {
                 c++;
             }
         }
@@ -117,10 +120,14 @@ public class StringService {
         System.out.println("Word with min amount of different symbols is: " + minWord);
     }
 
-    static void findWordWithUniqueSymbolsOnly (String [] words) {
+    static void findWordWithUniqueSymbolsOnly(String[] words) {
         for (int i = 0; i < words.length; i++) {
             if (countSymbols(words[i]) == words[i].length()) {
-                System.out.println("Word with only unique symbols: " + words[i]);
+                System.out.println("Word with unique symbols only: " + words[i]);
+                return;
+            }
+            if (i == (words.length - 1)) {
+                System.out.println("Word with unique symbols only is not found");
                 return;
             }
         }

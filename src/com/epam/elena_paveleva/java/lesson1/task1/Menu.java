@@ -51,15 +51,15 @@ public class Menu {
             }
 
             int[] arr;
-            int taskNumber = 0;
-            try {
+           // int taskNumber = getTaskNumber(input);
+           /* try {
                 taskNumber = Integer.parseInt(input);
             } catch (NumberFormatException | NullPointerException e) {
                 System.out.println("Input is not an index number");
                 continue;
-            }
+            }*/
             ArrayService arrayService = new ArrayService();
-            switch (taskNumber) {
+            switch (getTaskNumber(input,sc)) {
 
                 case 1: // task 1_1
                     arr = arrayService.initializeArray(20);
@@ -116,14 +116,7 @@ public class Menu {
                 System.out.println("Going back to main menu");
                 break;
             }
-            int taskNumber = 0;
-            try {
-                taskNumber = Integer.parseInt(input);
-            } catch (NumberFormatException | NullPointerException e) {
-                System.out.println("Input is not an index number");
-                continue;
-            }
-            switch (taskNumber) {
+            switch (getTaskNumber(input,sc)) {
                 case 1:
                     StringService.findMinMax(sc);
                     break;
@@ -142,9 +135,25 @@ public class Menu {
 
                 case 5:
                     StringService.findWordWithUniqueSymbolsOnly(StringService.enterWords(sc));
+                    break;
 
                 default:
                     System.out.println("There's no such task yet");
+                    break;
+            }
+        }
+    }
+
+    private static int getTaskNumber(String input, Scanner sc) {
+        int taskNumber;
+        while (true) {
+            try {
+                taskNumber = Integer.parseInt(input);
+                return taskNumber;
+            } catch (NumberFormatException | NullPointerException e) {
+                System.out.println("Input is not an index number. Enter valid task number");
+                input = sc.next();
+                continue;
             }
         }
     }
