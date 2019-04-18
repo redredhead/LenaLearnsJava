@@ -51,15 +51,8 @@ public class Menu {
             }
 
             int[] arr;
-           // int taskNumber = getTaskNumber(input);
-           /* try {
-                taskNumber = Integer.parseInt(input);
-            } catch (NumberFormatException | NullPointerException e) {
-                System.out.println("Input is not an index number");
-                continue;
-            }*/
             ArrayService arrayService = new ArrayService();
-            switch (getTaskNumber(input,sc)) {
+            switch (getTaskNumber(input, sc)) {
 
                 case 1: // task 1_1
                     arr = arrayService.initializeArray(20);
@@ -116,7 +109,7 @@ public class Menu {
                 System.out.println("Going back to main menu");
                 break;
             }
-            switch (getTaskNumber(input,sc)) {
+            switch (getTaskNumber(input, sc)) {
                 case 1:
                     StringService.findMinMax(sc);
                     break;
@@ -137,6 +130,10 @@ public class Menu {
                     StringService.findWordWithUniqueSymbolsOnly(StringService.enterWords(sc));
                     break;
 
+                case 6:
+                    StringService.findDigitWord(StringService.enterWords(sc));
+                    break;
+
                 default:
                     System.out.println("There's no such task yet");
                     break;
@@ -153,7 +150,6 @@ public class Menu {
             } catch (NumberFormatException | NullPointerException e) {
                 System.out.println("Input is not an index number. Enter valid task number");
                 input = sc.next();
-                continue;
             }
         }
     }
