@@ -12,7 +12,7 @@ public class Menu {
 
     private static void process(Scanner sc) {
         while (true) {
-            System.out.println("Press 1 to work with arrays. Press 2 to work with strings. Press X for exit");
+            System.out.println("Press 1 to work with arrays. Press 2 to work with strings. Press 3 to go to calculator. Press X for exit");
             String input = sc.next();
             if (input.equalsIgnoreCase("X")) {
                 System.out.println("Bye");
@@ -32,6 +32,10 @@ public class Menu {
 
                 case 2:
                     processStrings(sc);
+                    break;
+
+                case 3:
+                    processCalculator(sc);
                     break;
 
                 default:
@@ -151,6 +155,18 @@ public class Menu {
                 System.out.println("Input is not an index number. Enter valid task number");
                 input = sc.next();
             }
+        }
+    }
+
+    private static void processCalculator (Scanner sc) {
+        while (true) {
+            System.out.println("Enter expression or press X to go back to main menu");
+            String input = sc.next();
+            if (input.equalsIgnoreCase("x")) {
+                System.out.println("Going back to main menu");
+                break;
+            }
+            Calculator.getAnswer(input);
         }
     }
 }
