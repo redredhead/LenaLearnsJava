@@ -2,12 +2,12 @@ package com.epam.elena_paveleva.java.lesson1.task1;
 
 public class Calculator {
     static void getAnswer(String str) {
-        int[] values = new int[2];
+        long[] values = new long[2];
         for (int i = 0; i < 2; i++) {
             try {
-                values[i] = Integer.parseInt(str.split("[-+*/]")[i]);
+                values[i] = Long.parseLong(str.split("[-+*/]")[i]);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("Invalid input");
+                System.out.println("Input is invalid or values are out of range");
                 return;
             }
         }
@@ -31,7 +31,6 @@ public class Calculator {
                     System.out.println("Cannot divide by zero");
                 } else {
                     System.out.println(str + "= " + ((double) values[0] / (double) values[1]));
-
                 }
                 break;
 
@@ -40,7 +39,11 @@ public class Calculator {
         }
     }
 
-    static char getAction(String str) {
+    static String[] getValues(String str) {
+        return str.split("[-+*/]");
+    }
+
+    private static char getAction(String str) {
         char action = 'x';
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '-' || str.charAt(i) == '+' || str.charAt(i) == '*' || str.charAt(i) == '/') {
@@ -49,9 +52,5 @@ public class Calculator {
             }
         }
         return action;
-    }
-
-    static String[] getValues(String str) {
-        return str.split("[-+*/]");
     }
 }
