@@ -10,9 +10,6 @@ public class Company {
         this.name = name;
         this.address = address;
     }
-    Company() { // убрать
-        this.TIN = null;
-    }
 
     public boolean isActive() {
         return (TIN != null && name != null && address != null);

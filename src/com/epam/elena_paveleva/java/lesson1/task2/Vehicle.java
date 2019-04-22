@@ -26,11 +26,11 @@ public abstract class Vehicle {
         }
     }
 
-    public abstract boolean readyToUse();
+    public abstract boolean isReadyToUse();
 
     public abstract void performMaintenance();
 
-    public void writeOff() {
+    public void writeOff() { //списать
         inUse = false;
     }
 
