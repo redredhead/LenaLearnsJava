@@ -1,9 +1,8 @@
 package com.epam.elena_paveleva.java.lesson1.task2;
 
 public class Company {
-    final String TIN;
+    private final String TIN;
     private String name = null;
-
     private String address = null;
 
     Company(String TIN, String name, String address) {
@@ -11,8 +10,7 @@ public class Company {
         this.name = name;
         this.address = address;
     }
-
-    Company() {
+    Company() { // убрать
         this.TIN = null;
     }
 
@@ -31,8 +29,5 @@ public class Company {
     public String getAddress() {
         return address;
     }
-
-
-
 
 }
