@@ -15,6 +15,7 @@ public class FlyingVehicle extends Vehicle {
     private int maxDistance;
     private int maxPayload;
     private int overallFlight;
+    private Engine engine;
 
     {
         maxSpeed = 0;
@@ -26,12 +27,13 @@ public class FlyingVehicle extends Vehicle {
     FlyingVehicle() {
     }
 
-    FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload) {
+    FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload, String engineModel, int enginePower) {
         super(lifetime);
         this.maxSpeed = maxSpeed;
         this.maxDistance = maxDistance;
         this.maxPayload = maxPayload;
         this.overallFlight = 0;
+        engine = new Engine(engineModel, enginePower);
     }
 
     public static int getMaxOverallFlight() {
@@ -52,12 +54,17 @@ public class FlyingVehicle extends Vehicle {
 
     @Override
     public boolean isReadyToUse() {
-        return (getInUse() && (dateExpired.isAfter(LocalDate.now())) && (overallFlight < maxOverallFlight));
+        return (getInUse() && (dateExpired.isAfter(LocalDate.now())) && (overallFlight < maxOverallFlight) && (engine.overallFlight < engine.maxOverallFlightHours));
     }
 
     @Override
     public void performMaintenance() {
         dateExpired = dateExpired.plusYears(1);
+    }
+
+    public void replaceEngine(String model, int power) {
+        this.engine.model = model;
+        this.engine.power = power;
     }
 
     public int getMaxDistance() {
@@ -86,23 +93,25 @@ public class FlyingVehicle extends Vehicle {
 
     protected class Engine {
 
-        int weight;
-        int length;
-        int width;
-        int height;
         int overallFlight;
         String model;
-        private int maxOverallFlightHours;
+        int power;
 
-        Engine(int weight, int length, int width, int height, String model) {
-            this.weight = weight;
-            this.width = width;
-            this.length = length;
-            this.height = height;
+        private int maxOverallFlightHours = 50000;
+
+        Engine(String model, int power) {
             this.model = model;
+            this.power = power;
             this.overallFlight = 0;
         }
 
 
+        public int getMaxOverallFlightHours() {
+            return maxOverallFlightHours;
+        }
+
+        public void setMaxOverallFlightHours(int maxOverallFlightHours) {
+            this.maxOverallFlightHours = maxOverallFlightHours;
+        }
     }
 }
