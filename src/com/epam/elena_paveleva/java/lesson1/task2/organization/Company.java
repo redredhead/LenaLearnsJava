@@ -1,4 +1,4 @@
-package com.epam.elena_paveleva.java.lesson1.task2;
+package com.epam.elena_paveleva.java.lesson1.task2.organization;
 
 public class Company {
     private final String TIN;

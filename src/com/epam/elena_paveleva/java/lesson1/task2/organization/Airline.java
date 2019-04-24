@@ -1,4 +1,6 @@
-package com.epam.elena_paveleva.java.lesson1.task2;
+package com.epam.elena_paveleva.java.lesson1.task2.organization;
+
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.FlyingVehicle;
 
 public class Airline extends Company {
 
