@@ -1,6 +1,8 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
 public class Airplane extends FlyingVehicle {
+    private static int boardCounter = 0;
+    final private int boardNumber;
     private int cabinCrew;
     private int fuelConsumption;
     private int fuelCapacity;
@@ -8,13 +10,14 @@ public class Airplane extends FlyingVehicle {
     private AirEngine airEngine;
     private Manufacturer manufacturer;
 
-    Airplane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineModel, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer) {
+    public Airplane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineSerialNum, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer) {
         super(lifetime, maxSpeed, maxDistance, maxPayload);
+        boardNumber = ++boardCounter;
         this.cabinCrew = cabinCrew;
         this.fuelConsumption = fuelConsumption;
         this.fuelCapacity = fuelCapacity;
         this.fuelLvl = fuelCapacity;
-        this.airEngine = new AirEngine(engineModel, enginePower, engineThrust, engineManufacturer);
+        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManufacturer);
 
         if (planeManufacturer.isUsedInPlanes()) {
             this.manufacturer = planeManufacturer;
@@ -22,27 +25,12 @@ public class Airplane extends FlyingVehicle {
             this.manufacturer = Manufacturer.NA;
             System.out.println("This brand does not make planes");
         }
+
+        System.out.println("New plane created with board number: " + boardNumber);
     }
 
-    private class AirEngine extends Engine {
-        int engineThrust;
-        Manufacturer manufacturer;
-
-        AirEngine(String engineModel, int enginePower, int engineThrust, Manufacturer manufacturer) {
-            super(engineModel, enginePower);
-            this.engineThrust = engineThrust;
-            if (manufacturer.isUsedInAirEngines()) {
-                this.manufacturer = manufacturer;
-            } else {
-                this.manufacturer = Manufacturer.NA;
-                System.out.println("This brand does not make air engines");
-            }
-        }
-    }
-
-    public void replaceEngine(String engineModel, int enginePower, int engineThrust) {
-        super.replaceEngine(engineModel, enginePower);
-        this.airEngine.engineThrust = engineThrust;
+    public void replaceEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer engineManifacturer) {
+        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManifacturer);
     }
 
     public void tankUp() {
@@ -62,9 +50,32 @@ public class Airplane extends FlyingVehicle {
         }
     }
 
-   /* public void printPlaneInfo () {
-        System.out.println("Plane manufacturer is: " + manufacturer + "\n ");
-    } */
+    public void printPlaneInfo() {
+        System.out.println("Board number: " + boardNumber + "\nManufacturer: " + manufacturer + "\nMax distance: " +
+                getMaxDistance() + "\nMax payload: " + getMaxPayload());
+    }
+
+    public int getBoardNumber() {
+        return boardNumber;
+    }
+
+    private class AirEngine extends Engine {
+
+        int engineThrust;
+        Manufacturer manufacturer;
+
+        AirEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer manufacturer) {
+            super(engineSerialNum, enginePower);
+            this.engineThrust = engineThrust;
+            if (manufacturer.isUsedInAirEngines()) {
+                this.manufacturer = manufacturer;
+            } else {
+                this.manufacturer = Manufacturer.NA;
+                System.out.println("This brand does not make air engines");
+            }
+        }
+
+    }
 
 
 }

@@ -35,9 +35,9 @@ public class FlyingVehicle extends Vehicle {
         this.mileage = 0;
     }
 
-    FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload, String engineModel, int enginePower) {
+    FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload, String engineSerialNum, int enginePower) {
         this(lifetime, maxSpeed, maxDistance, maxPayload);
-        engine = new Engine(engineModel, enginePower);
+        engine = new Engine(engineSerialNum, enginePower);
     }
 
     public static int getMaxOverallFlight() {
@@ -66,11 +66,9 @@ public class FlyingVehicle extends Vehicle {
         dateExpired = dateExpired.plusYears(1);
     }
 
-    public void replaceEngine(String engineModel, int enginePower) {
-        this.engine.engineModel = engineModel;
-        this.engine.enginePower = enginePower;
-        this.engine.overallFlight = 0;
-    }
+    public void replaceEngine(String engineSerialNum, int enginePower) {
+        this.engine = new Engine(engineSerialNum, enginePower);
+         }
 
     public int getMaxDistance() {
         return maxDistance;
@@ -99,13 +97,13 @@ public class FlyingVehicle extends Vehicle {
     protected class Engine {
 
         int overallFlight;
-        String engineModel;
+        final String engineSerialNum;
         int enginePower;
 
         private int maxOverallFlightHours = 50000;
 
-        Engine(String engineModel, int enginePower) {
-            this.engineModel = engineModel;
+        Engine(String engineSerialNum, int enginePower) {
+            this.engineSerialNum = engineSerialNum;
             this.enginePower = enginePower;
             this.overallFlight = 0;
         }
@@ -116,6 +114,10 @@ public class FlyingVehicle extends Vehicle {
 
         public void setMaxOverallFlightHours(int maxOverallFlightHours) {
             this.maxOverallFlightHours = maxOverallFlightHours;
+        }
+
+        public String getEngineSerialNum() {
+            return this.engineSerialNum;
         }
     }
 }
