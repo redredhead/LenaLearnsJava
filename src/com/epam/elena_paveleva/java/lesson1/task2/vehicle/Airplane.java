@@ -4,12 +4,13 @@ public class Airplane extends FlyingVehicle {
     private static int boardCounter = 0;
     final private int boardNumber;
     private int cabinCrew;
+
     private int fuelConsumption;
+
     private int fuelCapacity;
     private int fuelLvl;
     private AirEngine airEngine;
     private Manufacturer manufacturer;
-
     public Airplane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineSerialNum, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer) {
         super(lifetime, maxSpeed, maxDistance, maxPayload);
         boardNumber = ++boardCounter;
@@ -59,7 +60,11 @@ public class Airplane extends FlyingVehicle {
         return boardNumber;
     }
 
+    public int getFuelConsumption() {
+        return fuelConsumption;
+    }
     private class AirEngine extends Engine {
+
 
         int engineThrust;
         Manufacturer manufacturer;
@@ -75,7 +80,7 @@ public class Airplane extends FlyingVehicle {
             }
         }
 
-    }
 
+    }
 
 }
