@@ -1,11 +1,30 @@
- package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
+package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
 public class CargoPlane extends Airplane {
     private int volume;
 
-    public CargoPlane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineModel, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer,int volume) {
-        super(lifetime, maxSpeed, maxDistance, maxPayload, cabinCrew, fuelConsumption, fuelCapacity, engineModel, enginePower, engineThrust, planeManufacturer, engineManufacturer);
+    private CargoPlane(AirplaneBuilder plane, int volume) {
+        super(plane);
         this.volume = volume;
+    }
+
+    public static CargoPlaneBuilder getBuilder() {
+        CargoPlaneBuilder builder = new CargoPlaneBuilder();
+        return builder;
+    }
+
+    public static class CargoPlaneBuilder extends AirplaneBuilder {
+        int volume;
+
+        public CargoPlaneBuilder setVolume(int volume) {
+            this.volume = volume;
+            return this;
+        }
+
+        public CargoPlane buildPlane() {
+            CargoPlane plane = new CargoPlane(this, volume);
+            return plane;
+        }
     }
 
 

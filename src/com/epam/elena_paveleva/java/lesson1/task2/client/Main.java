@@ -10,11 +10,16 @@ import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
 public class Main {
     public static void main(String[] args) {
         Airline s7 = new Airline("1123332", "S7 Airlines", "St P, Nevsky 23");
-        Airplane airplane1 = new PassengerPlane(20, 950, 10000, 500, 2,
-                5, 150, "Eng-113", 10, 2, Manufacturer.AIRBUS, Manufacturer.BOEING,
-                3,20,100);
-        Airplane airplane2 = new CargoPlane(20, 700, 7500, 250, 2, 3, 120,
-                "Eng-111", 10, 2, Manufacturer.AIRBUS, Manufacturer.ROLLSROYCE,600);
+        Airplane airplane1 = new PassengerPlane(Airplane.getBuilder()
+                .setBasics(20, 15000, 500, 1200)
+                .setPlaneFeatures(5, 150, 2, Manufacturer.AIRBUS)
+                .setEngine("AMW-113", 120, 150, Manufacturer.BOEING)
+                , 5, 20, 150);
+        Airplane airplane2 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
+                .setBasics(20, 7500, 7592, 750)
+                .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
+                .setEngine("Eng-111", 10, 2, Manufacturer.ROLLSROYCE)))
+                .setVolume(650).buildPlane();
         s7.addPlane(airplane1);
         s7.addPlane(airplane2);
         s7.printFleet();

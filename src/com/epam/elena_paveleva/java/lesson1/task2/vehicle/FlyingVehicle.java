@@ -24,8 +24,8 @@ public class FlyingVehicle extends Vehicle {
         mileage = 0;
     }
 
-    FlyingVehicle() {
-    }
+   /* FlyingVehicle() {
+    } */
 
     protected FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload) {
         super(lifetime);
