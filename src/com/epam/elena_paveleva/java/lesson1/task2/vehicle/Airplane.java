@@ -4,16 +4,18 @@ public class Airplane extends FlyingVehicle {
     private static int boardCounter = 0;
     final private int boardNumber;
     private int cabinCrew;
-
     private int fuelConsumption;
-
     private int fuelCapacity;
     private int fuelLvl;
-
     private AirEngine airEngine;
 
+    {
+        System.out.println("New plane created with board number: " + ++boardCounter);
+    }
+
     private Manufacturer manufacturer;
-    protected Airplane(AirplaneBuilder plane) {
+
+    Airplane(AirplaneBuilder plane) {
         super(plane.lifetime, plane.maxSpeed, plane.maxDistance, plane.maxPayload);
         this.cabinCrew = plane.cabinCrew;
         this.fuelConsumption = plane.fuelConsumption;
@@ -27,17 +29,16 @@ public class Airplane extends FlyingVehicle {
         }
 
         this.airEngine = new AirEngine(plane.engineSerialnum, plane.enginePower, plane.engineThrust, plane.engineManufacturer);
-        boardNumber = ++boardCounter;
+        boardNumber = boardCounter;
     }
 
 
     public static AirplaneBuilder getBuilder() {
-        AirplaneBuilder builder = new AirplaneBuilder();
-        return builder;
+        return new AirplaneBuilder();
     }
 
-    public void replaceEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer engineManifacturer) {
-        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManifacturer);
+    public void replaceEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer engineManufacturer) {
+        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManufacturer);
     }
 
     public void tankUp() {
@@ -59,7 +60,7 @@ public class Airplane extends FlyingVehicle {
 
     public void printPlaneInfo() {
         System.out.println("Board number: " + boardNumber + "\nManufacturer: " + manufacturer + "\nMax distance: " +
-                getMaxDistance() + "\nMax payload: " + getMaxPayload());
+                getMaxDistance() + "\nMax payload: " + getMaxPayload() + "\nFuel Consumption: " + fuelConsumption);
     }
 
     public int getBoardNumber() {
@@ -73,6 +74,7 @@ public class Airplane extends FlyingVehicle {
     public int getFuelConsumption() {
         return fuelConsumption;
     }
+
     public static class AirplaneBuilder {
 
         private int lifetime;
@@ -115,7 +117,6 @@ public class Airplane extends FlyingVehicle {
         public Airplane buildPlane() {
             return new Airplane(this);
         }
-
     }
 
     protected class AirEngine extends Engine {
@@ -135,7 +136,5 @@ public class Airplane extends FlyingVehicle {
             }
         }
 
-
     }
-
 }

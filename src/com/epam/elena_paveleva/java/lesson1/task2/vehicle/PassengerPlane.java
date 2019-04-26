@@ -6,17 +6,12 @@ public class PassengerPlane extends Airplane implements Upgradable {
     private int seatsBusinessClass;
     private int seatsEconomyClass;
 
-    //   public PassengerPlane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineModel, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer,int qtyFlightAttendants, int seatsBusinessClass, int seatsEconomyClass) {
-    // super(lifetime, maxSpeed, maxDistance, maxPayload, cabinCrew, fuelConsumption, fuelCapacity, engineModel, enginePower, engineThrust, planeManufacturer, engineManufacturer);
     public PassengerPlane(AirplaneBuilder plane, int qtyFlightAttendants, int seatsBusinessClass, int seatsEconomyClass) {
         super(plane);
         this.qtyFlightAttendants = qtyFlightAttendants;
         this.seatsBusinessClass = seatsBusinessClass;
         this.seatsEconomyClass = seatsEconomyClass;
     }
-
-
-
 
     @Override
     public void upgradeEngine() {
@@ -26,12 +21,12 @@ public class PassengerPlane extends Airplane implements Upgradable {
 
     @Override
     public void upgradeCabin() {
-        seatsBusinessClass+=5;
-        seatsEconomyClass+=10;
+        seatsBusinessClass += 5;
+        seatsEconomyClass += 10;
     }
 
     @Override
-    public void printPlaneInfo () {
+    public void printPlaneInfo() {
         super.printPlaneInfo();
         System.out.println("Seats business: " + getSeatsBusinessClass() + "\nSeats economy: " + getSeatsEconomyClass());
     }

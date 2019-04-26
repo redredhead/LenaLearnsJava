@@ -19,8 +19,10 @@ public class Airline extends Company {
         for (int i = 0; i < fleet.length; i++) {
             if (fleet[i] == null) {
                 fleet[i] = airplane;
+                sortPlanesByDistance();
                 break;
             }
+
             System.out.println("No space for another plane");
         }
     }
@@ -29,7 +31,7 @@ public class Airline extends Company {
         int i = 0;
         while (fleet[i] != null) {
             fleet[i].printPlaneInfo();
-            System.out.println("");
+            System.out.println();
             i++;
         }
     }
@@ -41,6 +43,7 @@ public class Airline extends Company {
             totalPayload += fleet[i].getMaxPayload();
             i++;
         }
+
         return totalPayload;
     }
 
@@ -53,10 +56,11 @@ public class Airline extends Company {
             }
             i++;
         }
+
         return totalPeopleCapacity;
     }
 
-    public Airplane findPlane(int distance, int weight) {
+    public Airplane findPlane(int distance, int weight) throws NullPointerException {
         Airplane optimalPlane = null;
         int i = 0;
 
@@ -74,13 +78,13 @@ public class Airline extends Company {
         }
 
         if (optimalPlane == null) {
-            System.out.println("no plane found");
+            throw new NullPointerException();
         }
 
         return optimalPlane;
     }
 
-    public void sortPlanesByDistance() {
+    private void sortPlanesByDistance() {
         Comparator<Airplane> distanceComparator = new Comparator<Airplane>() {
 
             @Override

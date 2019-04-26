@@ -22,8 +22,13 @@ public class Main {
         s7.printFleet();
         System.out.println("total payload:" + s7.getTotalPayload());
         System.out.println("total capacity: " + s7.getTotalPeopleCapacity());
-        s7.sortPlanesByDistance();
         s7.printFleet();
         Upgradable.printPlaneManufacturer();
+
+        try {
+            s7.findPlane(7600,550).printPlaneInfo();
+        } catch (NullPointerException e) {
+            System.out.println("Suitable plane not found");
+        }
     }
 }

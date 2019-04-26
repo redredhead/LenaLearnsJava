@@ -17,17 +17,7 @@ public class FlyingVehicle extends Vehicle {
     private int mileage;
     private Engine engine;
 
-    {
-        maxSpeed = 0;
-        maxDistance = 0;
-        maxPayload = 0;
-        mileage = 0;
-    }
-
-   /* FlyingVehicle() {
-    } */
-
-    protected FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload) {
+    FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload) {
         super(lifetime);
         this.maxSpeed = maxSpeed;
         this.maxDistance = maxDistance;

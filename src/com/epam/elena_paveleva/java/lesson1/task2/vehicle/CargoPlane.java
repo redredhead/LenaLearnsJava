@@ -1,6 +1,6 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
-public class CargoPlane extends Airplane implements Upgradable{
+public class CargoPlane extends Airplane implements Upgradable {
     private int volume;
 
     private CargoPlane(AirplaneBuilder plane, int volume) {
@@ -9,8 +9,7 @@ public class CargoPlane extends Airplane implements Upgradable{
     }
 
     public static CargoPlaneBuilder getBuilder() {
-        CargoPlaneBuilder builder = new CargoPlaneBuilder();
-        return builder;
+        return new CargoPlaneBuilder();
     }
 
     @Override
@@ -20,7 +19,7 @@ public class CargoPlane extends Airplane implements Upgradable{
 
     @Override
     public void upgradeCabin() {
-        volume+=5;
+        volume += 5;
     }
 
     @Override
@@ -38,8 +37,7 @@ public class CargoPlane extends Airplane implements Upgradable{
         }
 
         public CargoPlane buildPlane() {
-            CargoPlane plane = new CargoPlane(this, volume);
-            return plane;
+            return new CargoPlane(this, volume);
         }
     }
 

@@ -4,17 +4,14 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public abstract class Vehicle {
-    private LocalDate datePurchased;
-    LocalDate dateExpired;
     protected int lifetime; //years
+    LocalDate dateExpired;
+    private LocalDate datePurchased;
     private boolean inUse;
 
     {
         datePurchased = LocalDate.now();
         inUse = true;
-    }
-
-    Vehicle() {
     }
 
     Vehicle(int lifetime) {
@@ -42,11 +39,11 @@ public abstract class Vehicle {
         this.datePurchased = datePurchased;
     }
 
-    public void setInUse(boolean inUse) {
-        this.inUse = inUse;
-    }
-
     public boolean getInUse() {
         return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
     }
 }
