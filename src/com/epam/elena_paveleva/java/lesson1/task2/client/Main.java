@@ -1,10 +1,7 @@
 package com.epam.elena_paveleva.java.lesson1.task2.client;
 
 import com.epam.elena_paveleva.java.lesson1.task2.organization.Airline;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Airplane;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.CargoPlane;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Manufacturer;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.*;
 
 
 public class Main {
@@ -27,5 +24,6 @@ public class Main {
         System.out.println("total capacity: " + s7.getTotalPeopleCapacity());
         s7.sortPlanesByDistance();
         s7.printFleet();
+        Upgradable.printPlaneManufacturer();
     }
 }

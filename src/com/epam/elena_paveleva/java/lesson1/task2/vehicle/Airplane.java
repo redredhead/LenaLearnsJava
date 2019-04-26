@@ -9,9 +9,10 @@ public class Airplane extends FlyingVehicle {
 
     private int fuelCapacity;
     private int fuelLvl;
-    private AirEngine airEngine;
-    private Manufacturer manufacturer;
 
+    private AirEngine airEngine;
+
+    private Manufacturer manufacturer;
     protected Airplane(AirplaneBuilder plane) {
         super(plane.lifetime, plane.maxSpeed, plane.maxDistance, plane.maxPayload);
         this.cabinCrew = plane.cabinCrew;
@@ -29,24 +30,6 @@ public class Airplane extends FlyingVehicle {
         boardNumber = ++boardCounter;
     }
 
-  /*  public Airplane(int lifetime, int maxSpeed, int maxDistance, int maxPayload, int cabinCrew, int fuelConsumption, int fuelCapacity, String engineSerialNum, int enginePower, int engineThrust, Manufacturer planeManufacturer, Manufacturer engineManufacturer) {
-        super(lifetime, maxSpeed, maxDistance, maxPayload);
-        boardNumber = ++boardCounter;
-        this.cabinCrew = cabinCrew;
-        this.fuelConsumption = fuelConsumption;
-        this.fuelCapacity = fuelCapacity;
-        this.fuelLvl = fuelCapacity;
-        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManufacturer);
-
-        if (planeManufacturer.isUsedInPlanes()) {
-            this.manufacturer = planeManufacturer;
-        } else {
-            this.manufacturer = Manufacturer.NA;
-            System.out.println("This brand does not make planes");
-        }
-
-        System.out.println("New plane created with board number: " + boardNumber);
-    } */
 
     public static AirplaneBuilder getBuilder() {
         AirplaneBuilder builder = new AirplaneBuilder();
@@ -83,11 +66,15 @@ public class Airplane extends FlyingVehicle {
         return boardNumber;
     }
 
+    public AirEngine getAirEngine() {
+        return airEngine;
+    }
+
     public int getFuelConsumption() {
         return fuelConsumption;
     }
-
     public static class AirplaneBuilder {
+
         private int lifetime;
         private int maxDistance;
         private int maxPayload;
@@ -131,7 +118,7 @@ public class Airplane extends FlyingVehicle {
 
     }
 
-    private class AirEngine extends Engine {
+    protected class AirEngine extends Engine {
 
 
         int engineThrust;

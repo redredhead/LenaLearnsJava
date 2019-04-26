@@ -1,6 +1,6 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
-public class PassengerPlane extends Airplane {
+public class PassengerPlane extends Airplane implements Upgradable {
     private int qtyFlightAttendants;
 
     private int seatsBusinessClass;
@@ -15,6 +15,26 @@ public class PassengerPlane extends Airplane {
         this.seatsEconomyClass = seatsEconomyClass;
     }
 
+
+
+
+    @Override
+    public void upgradeEngine() {
+        this.getAirEngine().enginePower++;
+        this.getAirEngine().engineThrust++;
+    }
+
+    @Override
+    public void upgradeCabin() {
+        seatsBusinessClass+=5;
+        seatsEconomyClass+=10;
+    }
+
+    @Override
+    public void printPlaneInfo () {
+        super.printPlaneInfo();
+        System.out.println("Seats business: " + getSeatsBusinessClass() + "\nSeats economy: " + getSeatsEconomyClass());
+    }
 
     public int getQtyFlightAttendants() {
         return qtyFlightAttendants;
@@ -39,6 +59,5 @@ public class PassengerPlane extends Airplane {
     public void setSeatsEconomyClass(int seatsEconomyClass) {
         this.seatsEconomyClass = seatsEconomyClass;
     }
-
 }
 
