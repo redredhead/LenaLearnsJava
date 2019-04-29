@@ -1,9 +1,12 @@
 package com.epam.elena_paveleva.java.lesson1.task2.organization;
 
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalStateException;
+
 public class Company {
     private final String TIN;
     private String name;
     private String address;
+    private boolean Active;
 
 
     Company(String TIN, String name, String address) {
@@ -12,8 +15,16 @@ public class Company {
         this.address = address;
     }
 
+    public void close() throws IllegalStateException {
+        if (Active == true) {
+            Active = false;
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
     public boolean isActive() {
-        return (TIN != null && name != null && address != null);
+        return Active;
     }
 
     public String getName() {
