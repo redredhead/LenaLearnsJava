@@ -1,5 +1,8 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.EngineNotFoundException;
+
+
 public class Airplane extends FlyingVehicle {
     private static int boardCounter = 0;
     final private int boardNumber;
@@ -8,12 +11,11 @@ public class Airplane extends FlyingVehicle {
     private int fuelCapacity;
     private int fuelLvl;
     private AirEngine airEngine;
+    private Manufacturer manufacturer;
 
     {
         System.out.println("New plane created with board number: " + ++boardCounter);
     }
-
-    private Manufacturer manufacturer;
 
     Airplane(AirplaneBuilder plane) {
         super(plane.lifetime, plane.maxSpeed, plane.maxDistance, plane.maxPayload);
@@ -37,15 +39,32 @@ public class Airplane extends FlyingVehicle {
         return new AirplaneBuilder();
     }
 
-    public void replaceEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer engineManufacturer) {
-        this.airEngine = new AirEngine(engineSerialNum, enginePower, engineThrust, engineManufacturer);
+    private void replaceEngine(AirEngine newEngine) throws EngineNotFoundException {
+        if (newEngine == null) {
+            throw new EngineNotFoundException("new engine is null");
+        }
+        this.airEngine = newEngine;
+
+    }
+
+    public void performMaintenance(AirEngine newEngine) {
+
+        try {
+            replaceEngine(newEngine);
+        } catch (EngineNotFoundException e) {
+            System.out.println("Engine is null, replacement not performed");
+        } finally {
+            fuelCapacity++;
+        }
+
+
     }
 
     public void tankUp() {
         fuelLvl = fuelCapacity;
     }
 
-    boolean isReadyForFlight(int distance) {
+    private boolean isReadyForFlight(int distance) {
         return ((distance < getMaxDistance()) && (fuelLvl > fuelConsumption * distance));
     }
 
@@ -121,7 +140,6 @@ public class Airplane extends FlyingVehicle {
 
     protected class AirEngine extends Engine {
 
-
         int engineThrust;
         Manufacturer manufacturer;
 
@@ -135,6 +153,6 @@ public class Airplane extends FlyingVehicle {
                 System.out.println("Brand does not make air engines: " + manufacturer);
             }
         }
-
     }
 }
+

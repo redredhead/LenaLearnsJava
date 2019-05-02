@@ -1,5 +1,7 @@
 package com.epam.elena_paveleva.java.lesson1.task2.organization;
 
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalCompanyStateException;
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.ObjectNotFoundException;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Airplane;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
 
@@ -16,16 +18,31 @@ public class Airline extends Company {
 
 
     public void addPlane(Airplane airplane) {
-        for (int i = 0; i < fleet.length; i++) {
-            if (fleet[i] == null) {
-                fleet[i] = airplane;
-                sortPlanesByDistance();
-                break;
+        try {
+            if (isActive()) {
+                for (int i = 0; i < fleet.length; i++) {
+                    if ((airplane == null) || (airplane != null && fleet[i] == airplane)) {
+                        throw new IllegalArgumentException("plane already exists or argument value is null");
+                    }
+                    if (i == 10 && fleet[i] != null) {
+                        System.out.println("No space for another plane");
+                    }
+                    if (fleet[i] == null) {
+                        fleet[i] = airplane;
+                        sortPlanesByDistance();
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalCompanyStateException("unable to modify fleet of closed company");
             }
-
-            System.out.println("No space for another plane");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Plane already added or null value passed");
+        } catch (IllegalCompanyStateException e) {
+            System.out.println("Unable to add new plane to closed airline");
         }
     }
+
 
     public void printFleet() {
         int i = 0;
@@ -60,7 +77,7 @@ public class Airline extends Company {
         return totalPeopleCapacity;
     }
 
-    public Airplane findPlane(int distance, int weight) throws NullPointerException {
+    public Airplane findPlane(int distance, int weight) throws ObjectNotFoundException {
         Airplane optimalPlane = null;
         int i = 0;
 
@@ -78,7 +95,7 @@ public class Airline extends Company {
         }
 
         if (optimalPlane == null) {
-            throw new NullPointerException();
+            throw new ObjectNotFoundException("airplane");
         }
 
         return optimalPlane;

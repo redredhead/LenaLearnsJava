@@ -1,7 +1,12 @@
 package com.epam.elena_paveleva.java.lesson1.task2.client;
 
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalCompanyStateException;
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.ObjectNotFoundException;
 import com.epam.elena_paveleva.java.lesson1.task2.organization.Airline;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.*;
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Airplane;
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.CargoPlane;
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Manufacturer;
+import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
 
 
 public class Main {
@@ -17,18 +22,34 @@ public class Main {
                 .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
                 .setEngine("Eng-111", 10, 2, Manufacturer.ROLLSROYCE)))
                 .setVolume(650).buildPlane();
+        Airplane airplane3 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
+                .setBasics(10, 5000, 6500, 650)
+                .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
+                .setEngine("Eng-121", 12, 3, Manufacturer.CONTINENTAL)))
+                .setVolume(430).buildPlane();
+
         s7.addPlane(airplane1);
         s7.addPlane(airplane2);
-        s7.printFleet();
+        s7.addPlane(null); // exception
+        s7.addPlane(airplane1); // exception
+        airplane2.performMaintenance(null); // exception
         System.out.println("total payload:" + s7.getTotalPayload());
         System.out.println("total capacity: " + s7.getTotalPeopleCapacity());
-        s7.printFleet();
-        Upgradable.printPlaneManufacturer();
 
         try {
-            s7.findPlane(7600,550).printPlaneInfo();
-        } catch (NullPointerException e) {
-            System.out.println("Suitable plane not found");
+            s7.findPlane(7600, 550).printPlaneInfo(); //exception
+        } catch (ObjectNotFoundException e) {
+            e.printMessage();
         }
+
+        try {
+            s7.close();
+            s7.close(); //exception
+        } catch (IllegalCompanyStateException e) {
+            System.out.println("Company already closed");
+        }
+
+        s7.addPlane(airplane3); //exception
     }
 }
+
