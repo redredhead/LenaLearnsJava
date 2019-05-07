@@ -16,7 +16,6 @@ public class Airline extends Company {
         super(TIN, name, address);
     }
 
-
     public void addPlane(Airplane airplane) {
         try {
             if (isActive()) {
@@ -29,6 +28,7 @@ public class Airline extends Company {
                     }
                     if (fleet[i] == null) {
                         fleet[i] = airplane;
+                        fleet[i].setCompany(this);
                         sortPlanesByDistance();
                         break;
                     }

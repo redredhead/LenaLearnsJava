@@ -2,7 +2,7 @@ package com.epam.elena_paveleva.java.lesson1.task2.exceptions;
 
 import java.io.IOException;
 
-public class ObjectNotFoundException extends IOException {
+public class ObjectNotFoundException extends Exception {
     String type;
 
     public ObjectNotFoundException(String searchedType) {

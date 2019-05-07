@@ -50,6 +50,12 @@ public class Main {
         }
 
         s7.addPlane(airplane3); //exception
+
+        try {
+            s7.findPlane(100, 50).writeOff();
+        } catch (ObjectNotFoundException e) {
+            e.printMessage();
+        }
     }
 }
 

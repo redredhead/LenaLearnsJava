@@ -1,6 +1,9 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
 import com.epam.elena_paveleva.java.lesson1.task2.exceptions.EngineNotFoundException;
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalCompanyStateException;
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalObjectStateException;
+import com.epam.elena_paveleva.java.lesson1.task2.organization.Company;
 
 
 public class Airplane extends FlyingVehicle {
@@ -12,6 +15,7 @@ public class Airplane extends FlyingVehicle {
     private int fuelLvl;
     private AirEngine airEngine;
     private Manufacturer manufacturer;
+    private Company company;
 
     {
         System.out.println("New plane created with board number: " + ++boardCounter);
@@ -82,6 +86,22 @@ public class Airplane extends FlyingVehicle {
                 getMaxDistance() + "\nMax payload: " + getMaxPayload() + "\nFuel Consumption: " + fuelConsumption);
     }
 
+    @Override
+    public void writeOff() {
+        try {
+            if (company != null && !company.isActive()) {
+                throw new IllegalCompanyStateException("company inactive");
+            } else if (!getInUse()) {
+                throw new IllegalObjectStateException("plane already retired");
+            } else {
+                setInUse(false);
+                System.out.println("Plane retired");
+            }
+        } catch (IllegalCompanyStateException | IllegalObjectStateException e) {
+            System.out.println("Company closed or plane already retired");
+        }
+    }
+
     public int getBoardNumber() {
         return boardNumber;
     }
@@ -92,6 +112,14 @@ public class Airplane extends FlyingVehicle {
 
     public int getFuelConsumption() {
         return fuelConsumption;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public static class AirplaneBuilder {
