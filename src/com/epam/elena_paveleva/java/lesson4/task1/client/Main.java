@@ -1,11 +1,10 @@
 package com.epam.elena_paveleva.java.lesson4.task1.client;
 
-import com.epam.elena_paveleva.java.lesson4.task1.impl.CollectionService;
 import com.epam.elena_paveleva.java.lesson4.task1.impl.DynamicArray;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,14 +27,13 @@ public class Main {
         System.out.println(dynArr2.toString());
 
         //task2
-        Integer[] arr = new Integer[1_000_000];
-        CollectionService.generateArray(arr);
-        ArrayList arrayList = new ArrayList<>(Arrays.asList(arr));
-        Collections.shuffle(arrayList);
-        System.out.println("All elements unique: " + CollectionService.isAllUnique(arrayList));
-        System.out.println("Min element: " + Collections.min(arrayList));
-        CollectionService.removeOddElements(arrayList);
-        Collections.sort(arrayList);
-        System.out.println("second min element: " + arrayList.get(arrayList.size() - 2));
+
+        Set<Integer> set = IntStream.rangeClosed(1, 1000000).boxed().collect(Collectors.toSet());
+        List<Integer> list = Collections.synchronizedList(new ArrayList<>());
+        set.stream().parallel().unordered().forEach(list::add);
+        System.out.println("All elements unique: " + list.stream().allMatch(new HashSet<>()::add));
+        System.out.println("Min element: " + list.stream().min(Integer::compare).get());
+        list = list.stream().filter(a -> a % 2 == 0).collect(Collectors.toList());
+        System.out.println("2nd max: " + list.stream().sorted().skip(list.size() - 2).findAny().get());
     }
 }
