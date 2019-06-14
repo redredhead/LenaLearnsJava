@@ -32,8 +32,12 @@ public class Main {
         List<Integer> list = Collections.synchronizedList(new ArrayList<>());
         set.stream().parallel().unordered().forEach(list::add);
         System.out.println("All elements unique: " + list.stream().allMatch(new HashSet<>()::add));
-        System.out.println("Min element: " + list.stream().min(Integer::compare).get());
-        list = list.stream().filter(a -> a % 2 == 0).collect(Collectors.toList());
-        System.out.println("2nd max: " + list.stream().sorted().skip(list.size() - 2).findAny().get());
+        System.out.println("Min element: " + list.stream().min(Integer::compare).orElse(null));
+        if (list.size() >= 2) {
+            list = list.stream().filter(a -> a % 2 == 0).collect(Collectors.toList());
+            System.out.println("2nd max: " + list.stream().sorted().skip(list.size() - 2).findAny().orElse(null));
+        } else {
+            System.out.println("List size too small to find 2nd maximum element");
+        }
     }
 }
