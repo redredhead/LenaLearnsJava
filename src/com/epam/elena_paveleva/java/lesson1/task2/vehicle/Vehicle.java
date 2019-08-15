@@ -1,10 +1,11 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-public abstract class Vehicle {
-    protected int lifetime; //years
+public abstract class Vehicle implements Serializable {
+    protected transient int lifetime; //years
     LocalDate dateExpired;
     private LocalDate datePurchased;
     private boolean inUse;

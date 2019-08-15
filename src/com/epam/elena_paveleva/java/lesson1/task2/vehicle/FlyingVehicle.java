@@ -1,20 +1,21 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 public class FlyingVehicle extends Vehicle {
 
 
-    private static int maxOverallFlight;
+    transient private static int maxOverallFlight;
 
     static {
         maxOverallFlight = 50000;
     }
 
-    private int maxSpeed;
-    private int maxDistance;
-    private int maxPayload;
-    private int mileage;
+    transient private int maxSpeed;
+    transient private int maxDistance;
+    transient private int maxPayload;
+    transient private int mileage;
     private Engine engine;
 
     FlyingVehicle(int lifetime, int maxSpeed, int maxDistance, int maxPayload) {
@@ -58,7 +59,7 @@ public class FlyingVehicle extends Vehicle {
 
     public void replaceEngine(String engineSerialNum, int enginePower) {
         this.engine = new Engine(engineSerialNum, enginePower);
-         }
+    }
 
     public int getMaxDistance() {
         return maxDistance;
@@ -84,13 +85,13 @@ public class FlyingVehicle extends Vehicle {
         this.mileage = mileage;
     }
 
-    protected class Engine {
+    protected class Engine implements Serializable {
 
-        int overallFlight;
         final String engineSerialNum;
-        int enginePower;
+        transient int overallFlight;
+        transient int enginePower;
 
-        private int maxOverallFlightHours = 50000;
+        private transient int maxOverallFlightHours = 50000;
 
         Engine(String engineSerialNum, int enginePower) {
             this.engineSerialNum = engineSerialNum;

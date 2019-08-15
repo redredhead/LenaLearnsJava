@@ -1,7 +1,7 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
 public class CargoPlane extends Airplane implements Upgradable {
-    private int volume;
+    transient private int volume;
 
     private CargoPlane(AirplaneBuilder plane, int volume) {
         super(plane);
@@ -29,7 +29,7 @@ public class CargoPlane extends Airplane implements Upgradable {
     }
 
     public static class CargoPlaneBuilder extends AirplaneBuilder {
-        int volume;
+        transient int volume;
 
         public CargoPlaneBuilder setVolume(int volume) {
             this.volume = volume;

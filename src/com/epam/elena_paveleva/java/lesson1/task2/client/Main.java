@@ -1,12 +1,11 @@
 package com.epam.elena_paveleva.java.lesson1.task2.client;
 
-import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalCompanyStateException;
-import com.epam.elena_paveleva.java.lesson1.task2.exceptions.ObjectNotFoundException;
 import com.epam.elena_paveleva.java.lesson1.task2.organization.Airline;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Airplane;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.CargoPlane;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Manufacturer;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
+
+import java.io.*;
 
 
 public class Main {
@@ -17,7 +16,8 @@ public class Main {
                 .setPlaneFeatures(5, 150, 2, Manufacturer.AIRBUS)
                 .setEngine("AMW-113", 120, 150, Manufacturer.BOEING)
                 , 5, 20, 150);
-        Airplane airplane2 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
+
+        /* Airplane airplane2 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
                 .setBasics(20, 7500, 7592, 750)
                 .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
                 .setEngine("Eng-111", 10, 2, Manufacturer.ROLLSROYCE)))
@@ -28,7 +28,7 @@ public class Main {
                 .setEngine("Eng-121", 12, 3, Manufacturer.CONTINENTAL)))
                 .setVolume(430).buildPlane();
 
-        s7.addPlane(airplane1);
+         s7.addPlane(airplane1);
         s7.addPlane(airplane2);
         s7.addPlane(null); // exception
         s7.addPlane(airplane1); // exception
@@ -55,6 +55,27 @@ public class Main {
             s7.findPlane(100, 50).writeOff();
         } catch (ObjectNotFoundException e) {
             e.printMessage();
+        } */
+
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("filename"))) {
+            objectOutputStream.writeObject(s7);
+            objectOutputStream.writeObject(airplane1);
+        } catch (IOException e) {
+            System.out.println("Exception occurred during serialization");
+            e.printStackTrace();
+        }
+
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("filename"))) {
+            Airline siberia = (Airline) objectInputStream.readObject();
+            Airplane deserializedPlane = (Airplane) objectInputStream.readObject();
+            siberia.setName("Авиакомпания \"Сибирь\"");
+            siberia.addPlane(deserializedPlane);
+            System.out.println("Deserialized company info:");
+            siberia.printCompanyInfo();
+            siberia.printFleet();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error occurred during deserialization");
+            e.printStackTrace();
         }
     }
 }

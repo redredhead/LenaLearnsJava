@@ -1,10 +1,9 @@
 package com.epam.elena_paveleva.java.lesson1.task2.vehicle;
 
 public class PassengerPlane extends Airplane implements Upgradable {
-    private int qtyFlightAttendants;
-
-    private int seatsBusinessClass;
-    private int seatsEconomyClass;
+    private transient int qtyFlightAttendants;
+    private transient int seatsBusinessClass;
+    private transient int seatsEconomyClass;
 
     public PassengerPlane(AirplaneBuilder plane, int qtyFlightAttendants, int seatsBusinessClass, int seatsEconomyClass) {
         super(plane);

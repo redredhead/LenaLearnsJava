@@ -8,11 +8,11 @@ import com.epam.elena_paveleva.java.lesson1.task2.organization.Company;
 
 public class Airplane extends FlyingVehicle {
     private static int boardCounter = 0;
-    final private int boardNumber;
-    private int cabinCrew;
-    private int fuelConsumption;
-    private int fuelCapacity;
-    private int fuelLvl;
+    final private transient int boardNumber;
+    private transient int cabinCrew;
+    private transient int fuelConsumption;
+    private transient int fuelCapacity;
+    private transient int fuelLvl;
     private AirEngine airEngine;
     private Manufacturer manufacturer;
     private Company company;
@@ -124,18 +124,18 @@ public class Airplane extends FlyingVehicle {
 
     public static class AirplaneBuilder {
 
-        private int lifetime;
-        private int maxDistance;
-        private int maxPayload;
-        private int maxSpeed;
-        private int fuelConsumption;
-        private int fuelCapacity;
-        private int cabinCrew;
+        private transient int lifetime;
+        private transient int maxDistance;
+        private transient int maxPayload;
+        private transient int maxSpeed;
+        private transient int fuelConsumption;
+        private transient int fuelCapacity;
+        private transient int cabinCrew;
         private Manufacturer planeManufacturer;
         private String engineSerialnum;
-        private int engineThrust;
+        private transient int engineThrust;
         private Manufacturer engineManufacturer;
-        private int enginePower;
+        private transient int enginePower;
 
         public AirplaneBuilder setBasics(int lifetime, int maxDistance, int maxPayload, int maxSpeed) {
             this.lifetime = lifetime;
@@ -168,7 +168,7 @@ public class Airplane extends FlyingVehicle {
 
     protected class AirEngine extends Engine {
 
-        int engineThrust;
+        transient int engineThrust;
         Manufacturer manufacturer;
 
         AirEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer manufacturer) {
