@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class FlyingVehicle extends Vehicle {
 
 
-    transient private static int maxOverallFlight;
+    private static int maxOverallFlight;
 
     static {
         maxOverallFlight = 50000;

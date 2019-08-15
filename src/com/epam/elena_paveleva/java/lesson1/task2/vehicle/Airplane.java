@@ -124,18 +124,18 @@ public class Airplane extends FlyingVehicle {
 
     public static class AirplaneBuilder {
 
-        private transient int lifetime;
-        private transient int maxDistance;
-        private transient int maxPayload;
-        private transient int maxSpeed;
-        private transient int fuelConsumption;
-        private transient int fuelCapacity;
-        private transient int cabinCrew;
+        private int lifetime;
+        private int maxDistance;
+        private int maxPayload;
+        private int maxSpeed;
+        private int fuelConsumption;
+        private int fuelCapacity;
+        private int cabinCrew;
         private Manufacturer planeManufacturer;
         private String engineSerialnum;
-        private transient int engineThrust;
+        private int engineThrust;
         private Manufacturer engineManufacturer;
-        private transient int enginePower;
+        private int enginePower;
 
         public AirplaneBuilder setBasics(int lifetime, int maxDistance, int maxPayload, int maxSpeed) {
             this.lifetime = lifetime;

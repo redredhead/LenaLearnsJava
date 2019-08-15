@@ -29,7 +29,7 @@ public class CargoPlane extends Airplane implements Upgradable {
     }
 
     public static class CargoPlaneBuilder extends AirplaneBuilder {
-        transient int volume;
+        int volume;
 
         public CargoPlaneBuilder setVolume(int volume) {
             this.volume = volume;
