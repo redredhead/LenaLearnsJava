@@ -1,12 +1,14 @@
 package com.epam.elena_paveleva.java.lesson1.task2.client;
 
-import com.epam.elena_paveleva.java.lesson1.task2.exceptions.IllegalCompanyStateException;
-import com.epam.elena_paveleva.java.lesson1.task2.exceptions.ObjectNotFoundException;
+import com.epam.elena_paveleva.java.lesson1.task2.exceptions.SerializationException;
 import com.epam.elena_paveleva.java.lesson1.task2.organization.Airline;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Airplane;
-import com.epam.elena_paveleva.java.lesson1.task2.vehicle.CargoPlane;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.Manufacturer;
 import com.epam.elena_paveleva.java.lesson1.task2.vehicle.PassengerPlane;
+import com.epam.elena_paveleva.java.lesson5.serialization.SerializationHelper;
+
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Path;
 
 
 public class Main {
@@ -17,44 +19,24 @@ public class Main {
                 .setPlaneFeatures(5, 150, 2, Manufacturer.AIRBUS)
                 .setEngine("AMW-113", 120, 150, Manufacturer.BOEING)
                 , 5, 20, 150);
-        Airplane airplane2 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
-                .setBasics(20, 7500, 7592, 750)
-                .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
-                .setEngine("Eng-111", 10, 2, Manufacturer.ROLLSROYCE)))
-                .setVolume(650).buildPlane();
-        Airplane airplane3 = ((CargoPlane.CargoPlaneBuilder) (CargoPlane.getBuilder()
-                .setBasics(10, 5000, 6500, 650)
-                .setPlaneFeatures(5, 120, 2, Manufacturer.AIRBUS)
-                .setEngine("Eng-121", 12, 3, Manufacturer.CONTINENTAL)))
-                .setVolume(430).buildPlane();
-
-        s7.addPlane(airplane1);
-        s7.addPlane(airplane2);
-        s7.addPlane(null); // exception
-        s7.addPlane(airplane1); // exception
-        airplane2.performMaintenance(null); // exception
-        System.out.println("total payload:" + s7.getTotalPayload());
-        System.out.println("total capacity: " + s7.getTotalPeopleCapacity());
 
         try {
-            s7.findPlane(7600, 550).printPlaneInfo(); //exception
-        } catch (ObjectNotFoundException e) {
-            e.printMessage();
-        }
+            //serialize
+            Path f1 = SerializationHelper.serialize(s7, "f1");
+            Path f2 = SerializationHelper.serialize(airplane1, "f2");
 
-        try {
-            s7.close();
-            s7.close(); //exception
-        } catch (IllegalCompanyStateException e) {
-            System.out.println("Company already closed");
-        }
+            //deserialize
+            Airline siberia = SerializationHelper.deserialize(f1);
+            Airplane deserializedPlane = SerializationHelper.deserialize(f2);
 
-        s7.addPlane(airplane3); //exception
-
-        try {
-            s7.findPlane(100, 50).writeOff();
-        } catch (ObjectNotFoundException e) {
-            e.printMessage();
+            //edit and print
+            siberia.setName("Авиакомпания \"Сибирь\"");
+            siberia.addPlane(deserializedPlane);
+            System.out.println("Deserialized company info:");
+            siberia.printCompanyInfo();
+            siberia.printFleet();
+        } catch (FileAlreadyExistsException | SerializationException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -8,11 +8,11 @@ import com.epam.elena_paveleva.java.lesson1.task2.organization.Company;
 
 public class Airplane extends FlyingVehicle {
     private static int boardCounter = 0;
-    final private int boardNumber;
-    private int cabinCrew;
-    private int fuelConsumption;
-    private int fuelCapacity;
-    private int fuelLvl;
+    final private transient int boardNumber;
+    private transient int cabinCrew;
+    private transient int fuelConsumption;
+    private transient int fuelCapacity;
+    private transient int fuelLvl;
     private AirEngine airEngine;
     private Manufacturer manufacturer;
     private Company company;
@@ -168,7 +168,7 @@ public class Airplane extends FlyingVehicle {
 
     protected class AirEngine extends Engine {
 
-        int engineThrust;
+        transient int engineThrust;
         Manufacturer manufacturer;
 
         AirEngine(String engineSerialNum, int enginePower, int engineThrust, Manufacturer manufacturer) {
