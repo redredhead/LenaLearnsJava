@@ -5,15 +5,20 @@ import com.epam.elena_paveleva.java.lesson5.files.FileService;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Path path = Paths.get("C:\\Users\\Evgenii\\Downloads");
-        try {
-            FileService.listFiles(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int number = 1;
 
+        switch (number) {
+            case 1:
+                FileService.findMaxSymbolFile(FileService.listFiles(path), 's');
+                break;
+
+            case 2:
+                List<Path> files = FileService.listDirectories(path);
+        }
     }
 }
