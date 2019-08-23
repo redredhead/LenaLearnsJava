@@ -2,6 +2,7 @@ package com.epam.elena_paveleva.java.lesson5.files;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,47 @@ public class FileService {
         files.subList(amount, files.size()).clear();
         System.out.println("Top " + amount + " largest files in directory:");
         for (Path file : files) {
-            System.out.println(((Files.size(file)) / (1024L * 1024L)) + " Mb   " + file.toString());
+            System.out.println(((Files.size(file)) / (1024L * 1024L)) + " Mb   " + file);
+        }
+
+    }
+
+    public static void printAverageFileSizeForAllSubfolders(Path path) throws IOException {
+        if (!Files.isDirectory(path)) {
+            throw new InvalidPathException("unable to get average file size", "path is not a directory");
+        }
+
+        List<Path> directories = FileService.listDirectories(path);
+
+        for (Path directory : directories) {
+            long avg = FileService.calculateAverageFileSizeInFolder(directory);
+            if (avg == 0) {
+                System.out.println("There is no files in folder: " + directory);
+            } else {
+                System.out.println("Average size size of file for " + directory + " : " + (avg / 1024L) + " Kb");
+            }
+        }
+    }
+
+    private static long calculateAverageFileSizeInFolder(Path path) throws IOException {
+        if (!Files.isDirectory(path)) {
+            throw new InvalidPathException("unable to calculate average file size", "path is not a directory");
+        }
+
+        try (Stream<Path> walk = Files.walk(path, 1)) {
+            List<Path> files = walk.filter(Files::isRegularFile).collect(Collectors.toList());
+            long sum = 0;
+            if (files.isEmpty()) {
+                return sum;
+            } else {
+                for (Path file : files) {
+                    sum += Files.size(file);
+                }
+                return (sum / files.size());
+            }
+
+        } catch (IOException e) {
+            throw new IOException(e);
         }
 
     }
