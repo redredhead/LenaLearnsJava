@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         Path path = Paths.get("C:\\Users\\Evgenii\\Downloads");
-        int number = 1;
+        int number = 2;
 
         switch (number) {
             case 1:
@@ -18,7 +18,8 @@ public class Main {
                 break;
 
             case 2:
-                List<Path> files = FileService.listDirectories(path);
+                List<Path> files = FileService.listFiles(path);
+                FileService.printLargestFiles(files, 5);
         }
     }
 }

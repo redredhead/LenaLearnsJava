@@ -53,9 +53,27 @@ public class FileService {
 
     }
 
-    public static List<Path> findLargestFiles(Path directory, int amount) {
-        List<Path> largestFiles = new ArrayList<>();
-        return largestFiles;
+    public static List<Path> sortBySize(List<Path> files) {
+        List<Path> sortedFiles = new ArrayList<>(files);
+        sortedFiles.sort((o1, o2) -> {
+            try {
+                return (int) (Files.size(o2) - Files.size(o1));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        });
+        return sortedFiles;
+    }
+
+    public static void printLargestFiles(List<Path> files, int amount) throws IOException {
+        files = FileService.sortBySize(files);
+        files.subList(amount, files.size()).clear();
+        System.out.println("Top " + amount + " largest files in directory:");
+        for (Path file : files) {
+            System.out.println(((Files.size(file)) / (1024L * 1024L)) + " Mb   " + file.toString());
+        }
+
     }
 
     private static int countCharInFilename(Path file, char symbol) {
