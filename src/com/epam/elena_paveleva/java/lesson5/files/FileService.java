@@ -16,8 +16,6 @@ public class FileService {
         try (Stream<Path> walk = Files.walk(path)) {
             return walk.filter(Files::isRegularFile)
                     .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new IOException(e);
         }
     }
 
@@ -25,8 +23,6 @@ public class FileService {
         try (Stream<Path> walk = Files.walk(path)) {
             return walk.filter(Files::isDirectory)
                     .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new IOException(e);
         }
     }
 
@@ -39,7 +35,7 @@ public class FileService {
                 maxSymbolFiles.clear();
                 maxSymbolFiles.add(file);
                 maxSymbolCounter = counter;
-            } else if (counter != 0 && (maxSymbolFiles.isEmpty() || counter == maxSymbolCounter)) {
+            } else if (maxSymbolFiles.isEmpty() || counter == maxSymbolCounter) {
                 maxSymbolFiles.add(file);
                 maxSymbolCounter = counter;
             }
@@ -104,41 +100,25 @@ public class FileService {
         }
     }
 
+
     private static void countFilesByName(Path path) throws IOException {
         class Counter {
             private int files = 0;
             private int directories = 0;
 
-            private Counter(int f, int d) {
-                files = f;
-                directories = d;
-            }
         }
 
         Map<Character, Counter> result = new HashMap<>();
         try (Stream<Path> walk = Files.walk(path)) {
             walk.forEach(x -> {
                 char ch = x.getFileName().toString().toUpperCase().charAt(0);
-                if (!result.containsKey(ch)) {
-                    if (Files.isRegularFile(x)) {
-                        result.put(ch, new Counter(1, 0));
-                    } else {
-                        result.put(ch, new Counter(0, 1));
-                    }
+                result.putIfAbsent(ch, new Counter());
+                if (Files.isRegularFile(x)) {
+                    result.get(ch).files++;
                 } else {
-                    if (Files.isRegularFile(x)) {
-                        result.get(ch).files++;
-                    } else {
-                        result.get(ch).directories++;
-                    }
+                    result.get(ch).directories++;
                 }
             });
-        } catch (IOException e) {
-            throw new IOException(e);
-        }
-
-        if (!result.isEmpty()) {
-            result.forEach((k, v) -> System.out.println(k + ": " + v.files + " files, " + v.directories + " directories"));
         }
     }
 
@@ -148,18 +128,17 @@ public class FileService {
         }
 
         try (Stream<Path> walk = Files.walk(path, 1)) {
-            List<Path> files = walk.filter(Files::isRegularFile).collect(Collectors.toList());
             long sum = 0;
-            if (files.isEmpty()) {
+            sum = walk.filter(Files::isRegularFile).map(Files::size).reduce((f1, f2) -> f1 + f2);
+            return sum;
+            /*if (files.isEmpty()) {
                 return sum;
             } else {
                 for (Path file : files) {
                     sum += Files.size(file);
                 }
                 return (sum / files.size());
-            }
-        } catch (IOException e) {
-            throw new IOException(e);
+            }*/
         }
     }
 
@@ -170,5 +149,4 @@ public class FileService {
         }
         return (int) filename.chars().filter(ch -> ch == symbol).count();
     }
-
 }

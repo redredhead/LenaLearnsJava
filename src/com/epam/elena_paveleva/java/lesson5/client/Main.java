@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
+
+    private static int AMOUNT_OF_TASKS = 4;
+
     public static void main(String[] args) {
 
         if (validateInput(args)) {
@@ -61,6 +64,6 @@ public class Main {
             return false;
         }
 
-        return Files.exists(path) && Files.isDirectory(path) && task < 5;
+        return Files.exists(path) && Files.isDirectory(path) && task <= AMOUNT_OF_TASKS && task > 0;
     }
 }
