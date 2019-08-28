@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 public class FileService {
     public static List<Path> listFiles(Path path) throws IOException {
@@ -128,17 +127,21 @@ public class FileService {
         }
 
         try (Stream<Path> walk = Files.walk(path, 1)) {
-            long sum = 0;
-            sum = walk.filter(Files::isRegularFile).map(Files::size).reduce((f1, f2) -> f1 + f2);
-            return sum;
-            /*if (files.isEmpty()) {
+
+            AtomicInteger count = new AtomicInteger(0);
+            long sum = walk.filter(Files::isRegularFile).peek(x -> count.getAndIncrement()).map(path1 -> {
+                try {
+                    return Files.size(path1);
+                } catch (IOException e) {
+                    return null;
+                }
+            }).filter(Objects::nonNull).reduce(Long::sum).orElse(0L);
+
+            if (count.get() == 0) {
                 return sum;
             } else {
-                for (Path file : files) {
-                    sum += Files.size(file);
-                }
-                return (sum / files.size());
-            }*/
+                return (sum / count.get());
+            }
         }
     }
 
