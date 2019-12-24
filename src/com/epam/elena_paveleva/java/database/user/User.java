@@ -1,4 +1,6 @@
-package com.epam.elena_paveleva.java.database;
+package com.epam.elena_paveleva.java.database.user;
+
+import com.epam.elena_paveleva.java.database.Friendship;
 
 import java.time.LocalDate;
 import java.util.List;

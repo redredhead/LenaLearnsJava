@@ -1,9 +1,12 @@
 package com.epam.elena_paveleva.java.database;
 
-import java.sql.*;
-import java.util.ArrayList;
+import com.epam.elena_paveleva.java.database.client.MainDB;
+import com.epam.elena_paveleva.java.database.user.User;
 
-import static com.epam.elena_paveleva.java.database.MainDB.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseService {
 

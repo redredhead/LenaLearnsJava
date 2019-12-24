@@ -1,6 +1,7 @@
 package com.epam.elena_paveleva.java.database;
 
-import java.time.LocalDate;
+import com.epam.elena_paveleva.java.database.user.User;
+
 import java.time.LocalDateTime;
 
 public class Friendship {

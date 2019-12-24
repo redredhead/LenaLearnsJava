@@ -1,4 +1,6 @@
-package com.epam.elena_paveleva.java.database;
+package com.epam.elena_paveleva.java.database.user;
+
+import com.epam.elena_paveleva.java.database.client.MainDB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,12 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDaoImpl implements UserDao {
     private ResultSet rs = null;
 
-    protected int insertUser(User user) throws SQLException {
-        if (user.getName() == null || user.getSurname() == null|| user.getBirthday() == null) {
-            return 0;
+    @Override
+    public boolean insertUser(User user) throws SQLException {
+        if (user.getName() == null || user.getSurname() == null || user.getBirthday() == null) {
+            return false;
         }
         PreparedStatement st = MainDB.conn.prepareStatement("INSERT INTO users " +
                 "(name, surname, birthdate) " +
@@ -19,10 +22,11 @@ public class UserDAO {
         st.setString(1, user.getName());
         st.setString(2, user.getSurname());
         st.setString(3, user.getBirthday().toString());
-        return st.executeUpdate();
+        return st.execute();
     }
 
-    protected List<User> selectUsersFromTask(int friends, int fromLikes, int toLikes) throws SQLException {
+    @Override
+    public List<User> selectUsersFromTask(int friends, int fromLikes, int toLikes) throws SQLException {
         List<User> users = new ArrayList<>();
         PreparedStatement st = MainDB.conn.prepareStatement("select r.userid, u.name, u.surname, avg(LCounter) as average from\n" +
                 "(select p.id, p.userid, count(l.id) as LCounter from posts as p " +
@@ -41,7 +45,7 @@ public class UserDAO {
         st.setInt(1, friends);
         st.setInt(2, fromLikes);
         st.setInt(3, toLikes);
-        rs =  st.executeQuery();
+        rs = st.executeQuery();
         while (rs.next()) {
             User user = new User();
             user.setId(rs.getInt("userid"));
