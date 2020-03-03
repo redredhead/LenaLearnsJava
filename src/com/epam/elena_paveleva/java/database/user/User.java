@@ -9,7 +9,6 @@ public class User {
     private int id;
 
     private String name;
-
     private String surname;
     private LocalDate birthday;
     private List<Friendship> friendships = null;
